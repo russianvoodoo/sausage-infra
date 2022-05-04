@@ -1,0 +1,12 @@
+#cloud-config
+users:
+  - name: ubuntu
+    shell: /bin/bash
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    ssh-authorized-keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDOuQd90lImFJDDuXZ73RncaJ1XC6Yraou0UCYX7BsqQarT1ULretQfgJaL84D6W/489sjFqCG2xXaFgBhLYbPbHLD9MhywZCqvJbjwYOAJcCH+FTwazsiG6X3JX0U5MKEvBqwUwA9dqTp6/SSaOd1iNi0f/KpOrlzA+4EgyUnqXliHSwXZPHojWZzgbH37yquwW4DuT11eckNs9kBUxKOl4hXI79zQC6ssqw/E5Bs7SQK3kVp/y7eKecXLLDnTcKHicq2lqlV3s1S9Iguog2qY3FqhJNxjknDvlxAP31Aov3Kl34PeG9tUZmiT6Hr/kx7uLbgAdjKoWEiEUEPLWfxHXTrGwpr+EYBBQbbKktxUKQSIHLZtLpd07fQ1b5LbnDcXSi3IDhaick3r/ftwsb6UW+7kVNQlYT+gMVMJNwCKpbGRAUuVljcI85y+RJ3gCWedW4tUuwjg4fcxD4H6WYVmRnHJu0ic9su27Eu+YYsjlYiBlFJeiREhqUn1FUqFg/E= student@fhm5jg5tehm1bdm9kchn        
+  - name: ansible
+    shell: /bin/bash
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    ssh-authorized-keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDOuQd90lImFJDDuXZ73RncaJ1XC6Yraou0UCYX7BsqQarT1ULretQfgJaL84D6W/489sjFqCG2xXaFgBhLYbPbHLD9MhywZCqvJbjwYOAJcCH+FTwazsiG6X3JX0U5MKEvBqwUwA9dqTp6/SSaOd1iNi0f/KpOrlzA+4EgyUnqXliHSwXZPHojWZzgbH37yquwW4DuT11eckNs9kBUxKOl4hXI79zQC6ssqw/E5Bs7SQK3kVp/y7eKecXLLDnTcKHicq2lqlV3s1S9Iguog2qY3FqhJNxjknDvlxAP31Aov3Kl34PeG9tUZmiT6Hr/kx7uLbgAdjKoWEiEUEPLWfxHXTrGwpr+EYBBQbbKktxUKQSIHLZtLpd07fQ1b5LbnDcXSi3IDhaick3r/ftwsb6UW+7kVNQlYT+gMVMJNwCKpbGRAUuVljcI85y+RJ3gCWedW4tUuwjg4fcxD4H6WYVmRnHJu0ic9su27Eu+YYsjlYiBlFJeiREhqUn1FUqFg/E= student@fhm5jg5tehm1bdm9kchn
