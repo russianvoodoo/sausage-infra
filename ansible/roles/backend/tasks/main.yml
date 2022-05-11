@@ -1,0 +1,62 @@
+---
+# tasks file for backend
+# В нашей автоматизации список из четырех задач
+
+- name: установка openjdk-16-jdk
+  apt:
+    name: openjdk-16-jdk
+    state: latest
+    install_recommends: no
+    update_cache: yes
+
+- name: Добавим сервисного пользователя
+  user:
+    name: "jarservice"
+    create_home: no
+    shell: /sbin/nologin
+
+- name: Создание директории для бэка
+  file:
+    path: "{{backend_directory}}"
+    state: directory
+    owner: jarservice
+    group: jarservice
+    mode: 0775
+    recurse: yes
+
+- name: Install PIP
+  apt: 
+    name: python3-pip 
+    state: present
+
+- name: Install lxml
+  pip: 
+    name: lxml
+
+- name: Используем модуль maven_artifact, он скачает пакет приложения с Nexus
+  maven_artifact:
+    dest: "{{backend_directory}}/sausage-store-{{backend_version}}.jar"
+    repository_url: "https://nexus.praktikum-services.ru/repository/sausage-store-zadokhin-ilya-backend/"    
+    group_id: "com.yandex.practicum.devops"
+    artifact_id: "sausage-store"
+    version: "{{ backend_version }}"
+    username: "{{nexus_user}}"
+    password: "{{nexus_password}}"
+    owner: jarservice
+    group: jarservice
+  
+- name: Шаблонизация конфига управляет настройками приложения с помощью переменных
+  template:
+    src: sausage-store-backend.service.j2
+    dest: /etc/systemd/system/sausage-store-backend.service
+  notify: daemon reload
+
+- name: flush 
+  meta: flush_handlers
+
+- name: всё готово - запускаем!
+  service:
+    name: sausage-store-backend
+    state: started
+
+
