@@ -1,0 +1,63 @@
+---
+# tasks file for frontend
+- name: Добавим сервисного пользователя
+  user:
+    name: "www-data"
+    create_home: no
+    shell: /sbin/nologin
+
+- name: Создание директории для фронта
+  file:
+    path: /var/www-data
+    state: directory
+    owner: www-data
+    group: www-data
+    mode: 0775
+    recurse: yes
+
+- name: Скачиваем артифакт с помощью GET
+  get_url:
+    url: "https://nexus.praktikum-services.ru/repository/sausage-store-zadokhin-ilya-frontend/sausage-store-front/sausage-store/{{frontend_version}}/sausage-store-{{frontend_version}}.tar.gz"
+    dest: "/var/www-data/"
+    username: "{{nexus_user}}"
+    password: "{{nexus_password}}"
+
+- name: Unarchive
+  unarchive:
+    src: "/var/www-data/sausage-store-{{ frontend_version }}.tar.gz"
+    dest: "/var/www-data/"
+    remote_src: yes
+
+- name: Add nodejs apt key
+  apt_key:
+    url: "https://deb.nodesource.com/gpgkey/nodesource.gpg.key"
+    state: present
+
+- name: Add nodejs 16.x apt rep
+  apt_repository:
+    repo: "deb https://deb.nodesource.com/node_16.x focal main"
+    state: present
+    update_cache: yes   
+   
+- name: Install Packages
+  apt:
+    name:  nodejs
+  
+- name: Install npm http-server
+  community.general.npm:
+    name: http-server
+    global: yes
+
+- name: Шаблонизация конфига управляет настройками приложения с помощью переменных
+  template:
+    src: sausage-store-frontend.service.j2
+    dest: /etc/systemd/system/sausage-store-frontend.service
+  notify: daemon reload
+
+- meta: flush_handlers
+  name: flush
+
+- name: всё готово - запускаем!
+  service:
+    name: sausage-store-frontend
+    state: started
