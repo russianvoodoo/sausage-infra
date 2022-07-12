@@ -39,3 +39,8 @@ id_rsa.pub
 id_rsa.pub.pub
 
 **/.vault
+
+.DS_Store
+.env
+*.jar
+
