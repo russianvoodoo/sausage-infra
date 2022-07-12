@@ -1,0 +1,56 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+  labels:
+    app: backend
+spec:
+  replicas: 1
+  # Стратегия развёртывания. Recreate — удалит сначала все старые Pod'ы 
+  # Есть и более гибкая стратегии, например, RollingUpdate, которая будет обновлять Pod'ы порциями  
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+        - name: backend
+          image: gitlab.praktikum-services.ru:5050/russianvoodoo4/sausage-store/sausage-backend:latest
+          imagePullPolicy: IfNotPresent
+          resources:
+            requests:
+              memory: "1024Mi"
+              cpu: "200m"
+            limits:
+              memory: "1024Mi"
+              cpu: "500m" 
+          env:
+            - name: VAULT_HOST
+              value: "130.193.51.105"
+            - name: VAULT_PORT
+              value: "8200"
+            - name: VAULT_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: vault
+                  key: vault_token
+          ports:
+            - name: backend
+              containerPort: 8080
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8080
+            initialDelaySeconds: 60
+            periodSeconds: 45
+            timeoutSeconds: 5
+            failureThreshold: 6
+      imagePullSecrets:
+        - name: docker-config-secret
+
