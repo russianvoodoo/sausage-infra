@@ -10,7 +10,7 @@ deploy:
   rules:
      - changes:
           - kubernetes/*
-  before script:
+  before_script:
     - mkdir -p ~/.kube
     - chmod 700 ~/.kube
     - cat "$KUBECONFIG" >
