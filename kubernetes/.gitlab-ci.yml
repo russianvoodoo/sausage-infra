@@ -20,3 +20,4 @@ deploy:
     - kubectl apply -f backend/ 
     - kubectl apply -f backend-report/ 
     - kubectl apply -f frontend/ 
+    - rm -rf ~/.kube
