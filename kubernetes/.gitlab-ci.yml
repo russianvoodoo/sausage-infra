@@ -16,6 +16,7 @@ deploy:
     - cat "$KUBECONFIG" >> ~/.kube/config
     - chmod 644 ~/.kube/config
   script:
+    - cd kubernetes
     - kubectl apply -f backend/ 
     - kubectl apply -f backend-report/ 
     - kubectl apply -f frontend/ 
