@@ -13,8 +13,7 @@ deploy:
   before_script:
     - mkdir -p ~/.kube
     - chmod 700 ~/.kube
-    - echo "$KUBECONFIG" > ~/.kube/config
-    - cat ~/.kube/config
+    - cat "$KUBECONFIG" > ~/.kube/config
     - chmod 644 ~/.kube/config
   script:
     - cd kubernetes
