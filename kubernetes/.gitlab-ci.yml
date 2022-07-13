@@ -16,6 +16,6 @@ deploy:
     - cat "$KUBECONFIG" >> ~/.kube/config
     - chmod 644 ~/.kube/config
   script:
-    - kubectl apply -f kubernetes/src/yandex-practicum/backend/ 
-    - kubectl apply -f kubernetes/src/yandex-practicum/backend-report/ 
-    - kubectl apply -f kubernetes/src/yandex-practicum/frontend/ 
+    - kubectl apply -f backend/ 
+    - kubectl apply -f backend-report/ 
+    - kubectl apply -f frontend/ 
