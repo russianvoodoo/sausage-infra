@@ -6,6 +6,7 @@ kubernetes:
   trigger:
     include:
       - "/kubernetes/.gitlab-ci.yml"
+    strategy: depend
   only:
     changes:
-      - kubernetes/**/
+      - kubernetes/**/*
