@@ -1,0 +1,22 @@
+---
+apiVersion: networking.k8s.io/v1
+# ingress controller
+kind: Ingress
+metadata:
+  name: frontend
+spec:
+  ingressClassName: "nginx"
+  tls:
+    - hosts:
+        - "04-ilya-zadokhin.k8s.praktikum-services.tech"
+  rules:
+    - host: 04-ilya-zadokhin.k8s.praktikum-services.tech
+      http:
+        paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: frontend
+              port:
+                number: 8080

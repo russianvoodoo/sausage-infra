@@ -1,0 +1,23 @@
+stages:
+  - deploy
+
+deploy:
+  stage: deploy
+  image: alpine/k8s:1.22.10
+  environment:
+    name: k8s
+    url: https://04-ilya-zadokhin.k8s.praktikum-services.tech
+  rules:
+     - changes:
+          - kubernetes/*
+  before_script:
+    - mkdir -p ~/.kube
+    - chmod 700 ~/.kube
+    - cat "$KUBECONFIG" > ~/.kube/config
+    - chmod 644 ~/.kube/config
+  script:
+    - cd kubernetes
+    - kubectl apply -f backend/ 
+    - kubectl apply -f backend-report/ 
+    - kubectl apply -f frontend/ 
+    - rm -rf ~/.kube
