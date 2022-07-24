@@ -1,0 +1,13 @@
+  fqdn: 04-ilya-zadokhin.k8s.praktikum-services.tech
+  image: gitlab.praktikum-services.ru:5050/russianvoodoo4/sausage-store/sausage-frontend
+  imagePullPolicy: IfNotPresent
+  tag: latest
+  service:
+    port: 8080
+  resources:
+    requests:
+      memory: "1024Mi"
+      cpu: "100m"
+    limits:
+      memory: "2048Mi"
+      cpu: "500m" 

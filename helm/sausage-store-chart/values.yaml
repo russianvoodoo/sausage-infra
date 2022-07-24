@@ -1,0 +1,66 @@
+# values.yaml
+environment: production
+
+backend:
+  image: gitlab.praktikum-services.ru:5050/russianvoodoo4/sausage-store/sausage-backend
+  tag: latest
+  imagePullPolicy: IfNotPresent
+  replicas: 1
+  service:
+    port: 8080
+  vault:
+    port: 8200
+    host: 130.193.51.105
+  resources:
+    requests:
+      memory: "1024Mi"
+      cpu: "200m"
+    limits:
+      memory: "2048Mi"
+      cpu: "500m" 
+  containerPolicies:
+    minAllowed:
+      cpu: 0m
+      memory: 0Mi
+    maxAllowed:
+      cpu: 500m
+      memory: 2048Mi
+
+
+backend-report:
+  image: gitlab.praktikum-services.ru:5050/russianvoodoo4/sausage-store/backend-report
+  tag: latest
+  imagePullPolicy: IfNotPresent
+  replicas: 1
+  service:
+    port: 8081
+  vault:
+    port: 8200
+    host: 130.193.51.105
+  resources:
+    requests:
+      memory: "1024Mi"
+      cpu: "200m"
+    limits:
+      memory: "2048Mi"
+      cpu: "500m" 
+  spec:
+    minReplicas: 1
+    maxReplicas: 5
+    targetCPUUtilizationPercentage: 75
+
+
+frontend:
+  fqdn: 04-ilya-zadokhin.k8s.praktikum-services.tech
+  image: gitlab.praktikum-services.ru:5050/russianvoodoo4/sausage-store/sausage-frontend
+  imagePullPolicy: IfNotPresent
+  tag: latest
+  service:
+    port: 8080
+  resources:
+    requests:
+      memory: "1024Mi"
+      cpu: "100m"
+    limits:
+      memory: "2048Mi"
+      cpu: "500m" 

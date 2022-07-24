@@ -1,0 +1,20 @@
+  image: gitlab.praktikum-services.ru:5050/russianvoodoo4/sausage-store/backend-report
+  tag: latest
+  imagePullPolicy: IfNotPresent
+  replicas: 1
+  service:
+    port: 8081
+  vault:
+    port: 8200
+    host: 130.193.51.105
+  resources:
+    requests:
+      memory: "1024Mi"
+      cpu: "200m"
+    limits:
+      memory: "2048Mi"
+      cpu: "500m" 
+  spec:
+    minReplicas: 1
+    maxReplicas: 5
+    targetCPUUtilizationPercentage: 75
