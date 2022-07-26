@@ -43,4 +43,5 @@ id_rsa.pub.pub
 .DS_Store
 .env
 *.jar
+*.tgz
 
