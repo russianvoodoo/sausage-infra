@@ -4,7 +4,7 @@ variables:
 stages:
   - deploy
 
-kubernetes:
+argocd:
   stage: deploy
   image: argoproj/argocd:v2.3.3
   environment:
