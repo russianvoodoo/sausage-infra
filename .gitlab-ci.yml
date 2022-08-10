@@ -1,7 +1,7 @@
 stages:
   - module-pipelines
 
-kubernetes:
+argocd:
   stage: module-pipelines
   trigger:
     include:
