@@ -1,0 +1,17 @@
+variables:
+  VERSION: 1.0.${CI_PIPELINE_ID}
+    
+stages:
+  - deploy
+
+argocd:
+  stage: deploy
+  image: argoproj/argocd:v2.3.3
+  environment:
+    name: k8s_deploy
+    url: https://04-ilya-zadokhin.k8s.praktikum-services.tech
+  script:
+    - argocd --grpc-web --auth-token $ARGO_TOKEN --server $ARGO_SERVER app set sausage-store-zadokhin -p backend.tag=${BACKEND_IMAGE_TAG}
+    - argocd --grpc-web --auth-token $ARGO_TOKEN --server $ARGO_SERVER app set sausage-store-zadokhin -p frontend.tag=${FRONTEND_IMAGE_TAG}
+    - argocd --grpc-web --auth-token $ARGO_TOKEN --server $ARGO_SERVER app set sausage-store-zadokhin -p backend-report.tag=${BACKEND_REPORT_IMAGE_TAG}
+    - argocd --grpc-web --auth-token $ARGO_TOKEN --server $ARGO_SERVER app sync sausage-store-zadokhin

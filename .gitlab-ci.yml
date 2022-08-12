@@ -1,12 +1,14 @@
 stages:
   - module-pipelines
 
-kubernetes:
+argocd:
   stage: module-pipelines
   trigger:
     include:
-      - "/kubernetes/.gitlab-ci.yml"
+      #- "/kubernetes/.gitlab-ci.yml"
+      - "/argocd/.gitlab-ci.yml"
     strategy: depend
   only:
     changes:
-      - kubernetes/**/*
+      #- kubernetes/**/*
+      - argocd/**/*
